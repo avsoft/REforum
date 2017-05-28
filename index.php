@@ -1,5 +1,8 @@
 <?php
-	$_script_start = microtime(true);
+  include("inc/class.debug.php");
+  $debug = new Debug;
+  include("inc/class.template.php");
+  $html = new Template("default","wrapper");
 	error_reporting(E_ALL);
 	ini_set("log_errors", true);
 	ini_set("error_log", "./php-error.log");
@@ -590,17 +593,13 @@
 
 	// End of possible actions, close mysql connection.
 	disconnectSQL();
-
-	$_script_time = microtime(true) - $_script_start;
+  $debug->end();
 ?>
 
-<br />
-<br />
-<div class="finetext">
-REforum is &#169; 2017 pecon.us <a href="./about.html">About</a>
-<br>
-Page created in <?php print(round($_script_time * 1000)); ?> milliseconds with <?php print($_mysqli_numQueries . " " . ($_mysqli_numQueries == 1 ? "query" : "queries")); ?>.
-</div>
-</center>
-</body>
-</html>
+
+<?php
+  $dbstring = "Page created in ". round($debug->tFlag * 1000) ." milliseconds with ". $_mysqli_numQueries ." " . ($_mysqli_numQueries == 1 ? "query" : "queries");
+  $html->set("copyright", "REforum is &copy;2017 pecon.us <a href='./about.html'>About</a>");
+  $html->set("debug.string", $dbstring);
+  echo $html->output();
+?>
