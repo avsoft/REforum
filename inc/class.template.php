@@ -9,6 +9,9 @@
       }
       $this->file = $dir;
     }
+    function add($k,$v) {
+      $this->macros[$k] .= $v;
+    }
     function set($k,$v) {
       $this->macros[$k] = $v;
     }

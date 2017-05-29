@@ -3,6 +3,7 @@
   $debug = new Debug;
   include("inc/class.template.php");
   $html = new Template("default","wrapper");
+  $html->set("flinks", "");
 	error_reporting(E_ALL);
 	ini_set("log_errors", true);
 	ini_set("error_log", "./php-error.log");
@@ -590,14 +591,11 @@
 			if($_SESSION['admin'])
 				print("<br><a href=\"./admin.php\">Admin</a>");
 	}
-
-	// End of possible actions, close mysql connection.
-	disconnectSQL();
-  $debug->end();
 ?>
 
-
 <?php
+  disconnectSQL();
+  $debug->end();
   $dbstring = "Page created in ". round($debug->tFlag * 1000) ." milliseconds with ". $_mysqli_numQueries ." " . ($_mysqli_numQueries == 1 ? "query" : "queries");
   $html->set("copyright", "REforum is &copy;2017 pecon.us <a href='./about.html'>About</a>");
   $html->set("debug.string", $dbstring);
