@@ -554,6 +554,7 @@
 	}
 	else if(!isSet($_GET['action']))
 	{
+    include("inc/page.index.php");
 		if(!isSet($_GET['page']))
 			$page = 0;
 		else
@@ -591,9 +592,6 @@
 			if($_SESSION['admin'])
 				print("<br><a href=\"./admin.php\">Admin</a>");
 	}
-?>
-
-<?php
   disconnectSQL();
   $debug->end();
   $dbstring = "Page created in ". round($debug->tFlag * 1000) ." milliseconds with ". $_mysqli_numQueries ." " . ($_mysqli_numQueries == 1 ? "query" : "queries");
